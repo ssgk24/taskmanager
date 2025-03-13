@@ -1,25 +1,37 @@
-import React from 'react';
-import { Task } from '../types';
-import { Clock, Trash2, Edit2, CheckCircle, Circle, ArrowRightCircle } from 'lucide-react';
+/** @jsxImportSource react */
+import { Task } from "../types";
+import {
+  Clock,
+  Trash2,
+  Edit2,
+  CheckCircle,
+  Circle,
+  ArrowRightCircle,
+} from "lucide-react";
 
 interface TaskCardProps {
   task: Task;
   onDelete: (id: string) => void;
   onEdit: (task: Task) => void;
-  onStatusChange: (id: string, status: Task['status']) => void;
+  onStatusChange: (id: string, status: Task["status"]) => void;
 }
 
-export function TaskCard({ task, onDelete, onEdit, onStatusChange }: TaskCardProps) {
+export function TaskCard({
+  task,
+  onDelete,
+  onEdit,
+  onStatusChange,
+}: TaskCardProps) {
   const priorityColors = {
-    low: 'bg-green-100 text-green-800',
-    medium: 'bg-yellow-100 text-yellow-800',
-    high: 'bg-red-100 text-red-800',
+    low: "bg-green-100 text-green-800",
+    medium: "bg-yellow-100 text-yellow-800",
+    high: "bg-red-100 text-red-800",
   };
 
   const statusColors = {
-    pending: 'bg-gray-100 text-gray-800',
-    'in-progress': 'bg-blue-100 text-blue-800',
-    completed: 'bg-emerald-100 text-emerald-800',
+    pending: "bg-gray-100 text-gray-800",
+    "in-progress": "bg-blue-100 text-blue-800",
+    completed: "bg-emerald-100 text-emerald-800",
   };
 
   return (
@@ -41,15 +53,27 @@ export function TaskCard({ task, onDelete, onEdit, onStatusChange }: TaskCardPro
           </button>
         </div>
       </div>
-      
+
       <p className="text-gray-600 text-sm mb-4">{task.description}</p>
-      
+
       <div className="flex flex-wrap gap-2 mb-4">
-        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${priorityColors[task.priority]}`}>
-          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority
+        <span
+          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            priorityColors[task.priority]
+          }`}
+        >
+          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
+          Priority
         </span>
-        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[task.status]}`}>
-          {task.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+        <span
+          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            statusColors[task.status]
+          }`}
+        >
+          {task.status
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")}
         </span>
         {task.dueDate && (
           <span className="flex items-center text-xs text-gray-500">
@@ -64,12 +88,17 @@ export function TaskCard({ task, onDelete, onEdit, onStatusChange }: TaskCardPro
           Created: {new Date(task.createdAt).toLocaleDateString()}
         </span>
         <div className="flex space-x-2">
-          {task.status !== 'completed' && (
+          {task.status !== "completed" && (
             <button
-              onClick={() => onStatusChange(task.id, task.status === 'pending' ? 'in-progress' : 'completed')}
+              onClick={() =>
+                onStatusChange(
+                  task.id,
+                  task.status === "pending" ? "in-progress" : "completed"
+                )
+              }
               className="flex items-center text-sm text-blue-600 hover:text-blue-800"
             >
-              {task.status === 'pending' ? (
+              {task.status === "pending" ? (
                 <>
                   <ArrowRightCircle size={16} className="mr-1" />
                   Start
@@ -82,9 +111,9 @@ export function TaskCard({ task, onDelete, onEdit, onStatusChange }: TaskCardPro
               )}
             </button>
           )}
-          {task.status === 'completed' && (
+          {task.status === "completed" && (
             <button
-              onClick={() => onStatusChange(task.id, 'pending')}
+              onClick={() => onStatusChange(task.id, "pending")}
               className="flex items-center text-sm text-gray-600 hover:text-gray-800"
             >
               <Circle size={16} className="mr-1" />
